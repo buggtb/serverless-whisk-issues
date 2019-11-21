@@ -1,0 +1,31 @@
+service: boto-serverless
+
+provider:
+  name: openwhisk
+  runtime: python:3
+  ignore_certs: true
+
+functions:
+  sessionList:
+    handler: handler.sessionList
+    events:
+      - http:
+          path: /sessions/list
+          method: post
+
+plugins:
+  - serverless-openwhisk
+
+package:
+  excludeDevDependencies: true
+  exclude:
+    - virtualenv/**
+    - '!virtualenv/bin/activate_this.py'
+    - '!virtualenv/lib/python3.7/site-packages/boto3/**'
+    - '!virtualenv/lib/python3.7/site-packages/botocore'
+    - '!virtualenv/lib/python3.7/site-packages/docutils'
+    - '!virtualenv/lib/python3.7/site-packages/jmespath'
+    - '!virtualenv/lib/python3.7/site-packages/python-dateuril'
+    - '!virtualenv/lib/python3.7/site-packages/s3transfer'
+    - '!virtualenv/lib/python3.7/site-packages/siz'
+    - '!virtualenv/lib/python3.7/site-packages/urllib3'
